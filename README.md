@@ -9,6 +9,7 @@ In the context of global warming, monitoring changes in marine fauna distributio
 
 
 **Tonal detector - description**
+
 This tonal detector finds energy peaks over the signal and then assessed  tonal contour.
 
 The first step is an energy detector, which estimates the average sound level exposure (aPSD) as the power spectral density level integrated over a frequency bandwidths (bandwidth_call_freq) for a given duration (dt_aPSD). The detector considers the distribution of aPSD values over the signal with the hypothesis that the distribtuion should be normal, and thus based upon the mode, median or mean of aPSD values set a threshold above which values are considered as overdisperes (i.e. few occurence of high energy):
