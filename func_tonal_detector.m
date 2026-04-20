@@ -76,7 +76,7 @@ function [raw_tonals,smooth_tonals,energetic_detector,energetic_duration_detecto
 % requires, but mode seemed to be the best approach.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Example of inputs
+%% Example of application
 
 % dt_aPSD=0.1; % integration time for aPSD => resolution
 % window_call_durations=[1 120]; % in sec, ex for bearded seals : at least one sec and could reach 2minutes
@@ -92,8 +92,39 @@ function [raw_tonals,smooth_tonals,energetic_detector,energetic_duration_detecto
 % [sig_num, fs] = audioread('file.wav');
 % % best to convert the signal in dB:
 % sig_acou = 10^(-hydro_sensitivity/20).*10^(-gain/20)*dynamic*sig_num;
-% [tonals] = func_tonal_detector(sig_acou,fs,dt_aPSD,bandwidth_call_freq,window_call_durations,space_btw_diff_call,thresh_sigma,appli_fit_type,fit_type,thresh_Rsquare)
+% [raw_tonals,smooth_tonals,energetic_detector,energetic_duration_detector] = func_tonal_detector(sig_acou,fs,dt_aPSD,bandwidth_call_freq,window_call_durations,space_btw_diff_call,thresh_sigma,appli_fit_type,fit_type,thresh_Rsquare)
 
+% %% Visualisation:
+% hanning_window_2 = 1024;  %  lower frequency resolution but higer temporal resolution
+% [S2,Fq2,Tps2,P2] = spectrogram(sig_acou,hann(hanning_window_2),0.5*hanning_window_2,hanning_window_2,fs);
+% 
+% temp_dB = uint8(10*log10(P2));
+% figure
+% subplot 211
+% surf(seconds(Tps2), Fq2,temp_dB, 'EdgeColor', 'none')
+% view(0,90); box on;
+% colormap('jet');
+% caxis(([50 120]))
+% xlim([min(seconds(Tps2)) max(seconds(Tps2))])
+% ylim([min(bandwidth_call_freq) max(bandwidth_call_freq)+1000])
+% 
+% subplot 212
+% hold on
+% 
+% for c=1:length(raw_tonals)
+%     plot( raw_tonals{c}(2:end-2,1),raw_tonals{c}(2:end-2,2),'b')
+%     plot( smooth_tonals{c}(:,1),smooth_tonals{c}(:,2),'g')
+% 
+% end
+% 
+% plot([energetic_duration_detector(:,1) energetic_duration_detector(:,2)], [max(bandwidth_call_freq); max(bandwidth_call_freq)],'r')
+% 
+% xlim([min(Tps2) max(Tps2)])
+% ylim([min(bandwidth_call_freq) max(bandwidth_call_freq)+1000])
+% hold off
+% grid on
+% 
+% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Start function
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
