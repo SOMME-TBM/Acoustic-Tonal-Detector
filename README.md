@@ -17,7 +17,9 @@ The first step is an energy detector, which estimates the average sound level ex
 1- First step doesn't discriminate energetic sounds, thus a first selection is based upon the tonal durations with a minimum and a maximum  duration possible for the tonals (window_call_durations)
 2- The second step is a contour-based detector. The contour (i.e. frequency) is recovered from the spectrogram of the potential tonals detected based upon the energy criteria, by finding which frequency has the maximum energy for every time unit of the spectrogram. From tonals definition, the contour should be smooth and thus a fit model could be applied (fit_type). Then, a R² threshold is set to considered whether the energetic sound follows accurately a descriptive fit model.
 
-*Detector output*
+
+**Detector output**
+
 'raw_tonals' is a cell array with all contours detected and extracted:
 every cell (tonal) is a double-precision array [time frequency]
 the time is in second from the begininig of the signal (sig_acou)
@@ -35,7 +37,7 @@ Second col: numer of the event (several line with the same number = same event
 
 
 
-*Detector parameters  - INPUTS*
+**Detector parameters  - INPUTS**
 
 sig_acou: acoustic signal
 fs: sampling rate of the acoustic signal
